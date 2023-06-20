@@ -9,7 +9,7 @@ const options = {
   passReqToCallback: true,
 }
 
-const strategy = (passport) => {
+const jwtStrategy = (passport) => {
   passport.use(
     new Strategy(options, async (req, payload, done) => {
       const user = await User.findOne({ email: payload.email })
@@ -24,4 +24,4 @@ const strategy = (passport) => {
   )
 }
 
-export default strategy
+export default jwtStrategy

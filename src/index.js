@@ -9,8 +9,9 @@ import passport from 'passport'
 import MongoDatabase from './utils/db'
 import middlewares from './utils/middlewares'
 import logger from './utils/logger'
-import strategy from './utils/passport'
+import jwtStrategy from './utils/passport'
 
+import indexRouter from './routes/index'
 import userRouter from './routes/user'
 import todoRouter from './routes/todo'
 
@@ -18,7 +19,7 @@ const app = express()
 
 MongoDatabase()
 
-strategy(passport)
+jwtStrategy(passport)
 
 app.set('views', path.join(__dirname, '../views'))
 
@@ -36,9 +37,21 @@ app.use(cookieParser())
 
 app.use(cors())
 
-app.use(helmet())
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        /* eslint-disable-next-line quotes*/
+        'script-src': ["'self'", 'https://cdnjs.cloudflare.com'],
+        /* eslint-enable-next-line quotes*/
+      },
+    },
+  })
+)
 
 app.use(middlewares.loggingMiddleware)
+
+app.use('/', indexRouter)
 
 app.use('/api', userRouter)
 

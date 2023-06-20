@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+    <div class="container">
+        <h1>
+            <%= subTitle %>
+        </h1>
+        <form action="/api/user/register" method="POST">
+
+            <div class="input-field">
+                <input type="email" name="email" id="email" required />
+                <label for="email">Email</label>
+            </div>
+            <div class="input-field">
+                <input type="password" name="password" id="password" required />
+                <label for="password">Password</label>
+            </div>
+           <input type="submit" value="Register" class="btn-large" />
+        </form>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+
+</html>
