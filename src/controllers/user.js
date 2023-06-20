@@ -1,19 +1,20 @@
 import config from '../utils/config'
 require('express-async-errors')
 import bcrypt from 'bcrypt'
+//import passport from 'passport'
 import jwt from 'jsonwebtoken'
 
 import User from '../models/user'
+//import { sessionStrategy } from '../utils/passport'
 //import logger from '../utils/logger'
 
 const signup = async (req, res) => {
   let { email, password } = req.body
+
   try {
     const foundUser = await User.findOne({ email })
 
     if (foundUser) throw Error('Email already in use.')
-
-    //logger.debug(JSON.stringify(body, null, 2))
 
     const saltRounds = 10
 
@@ -24,9 +25,9 @@ const signup = async (req, res) => {
       password: hashed,
     })
 
-    await User.create(newUser)
+    const response = await User.create(newUser)
 
-    return res.status(200).send('ok')
+    return res.status(200).json({ id: response.id, email: response.email })
   } catch (err) {
     res.status(403).json({ error: err.message })
   }
@@ -49,7 +50,7 @@ const signin = async (req, res) => {
 
     const token = jwt.sign(payload, config.secret, { expiresIn: '1h' })
 
-    res.status(200).json({ success: true, token: token })
+    res.status(200).json({ success: true, token: token, email: payload.email })
   } catch (err) {
     res.status(400).json({ error: err.message })
   }

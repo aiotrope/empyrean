@@ -5,18 +5,17 @@ import express from 'express'
 const router = express.Router()
 
 router.get('/register.html', async (req, res) => {
-
-  res.render('register', { title: 'Empyrean | Registration', subTitle: 'Registration page' })
+  res.render('register', {
+    title: 'Empyrean | Registration',
+    subTitle: 'Registration page',
+  })
 })
 
-
 router.get('/login.html', async (req, res) => {
-
   res.render('login', { title: 'Empyrean | login', subTitle: 'Login page' })
 })
 
 router.get('', async (req, res) => {
-
   res.render('index', { title: 'Empyrean' })
 })
 

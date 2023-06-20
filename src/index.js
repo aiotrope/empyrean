@@ -4,12 +4,13 @@ import path from 'path'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import helmet from 'helmet'
+import session from 'express-session'
 import passport from 'passport'
 
 import MongoDatabase from './utils/db'
 import middlewares from './utils/middlewares'
 import logger from './utils/logger'
-import jwtStrategy from './utils/passport'
+import { jwtStrategy } from './utils/passport'
 
 import indexRouter from './routes/index'
 import userRouter from './routes/user'
@@ -38,12 +39,20 @@ app.use(cookieParser())
 app.use(cors())
 
 app.use(
+  session({
+    secret: config.session_secret,
+    resave: false,
+    saveUninitialized: false,
+  })
+)
+
+app.use(
   helmet({
     contentSecurityPolicy: {
       directives: {
-        /* eslint-disable-next-line quotes*/
-        'script-src': ["'self'", 'https://cdnjs.cloudflare.com'],
-        /* eslint-enable-next-line quotes*/
+        /* eslint-disable-next-line quotes */
+        'script-src': ["'self'"],
+        /* eslint-enable-next-line quotes */
       },
     },
   })

@@ -2,7 +2,6 @@ import createHttpError from 'http-errors'
 import morgan from 'morgan'
 import logger from './logger'
 
-
 const stream = {
   write: (message) => logger.http(message),
 }
