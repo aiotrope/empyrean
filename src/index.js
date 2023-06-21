@@ -6,6 +6,8 @@ import cors from 'cors'
 import helmet from 'helmet'
 import session from 'express-session'
 import passport from 'passport'
+import flash from 'express-flash'
+import ejsLayouts from 'express-ejs-layouts'
 
 import MongoDatabase from './utils/db'
 import middlewares from './utils/middlewares'
@@ -26,9 +28,9 @@ app.set('views', path.join(__dirname, '../views'))
 
 app.set('view engine', 'ejs')
 
-app.use(express.static(path.join(__dirname, '../public')))
+app.use(ejsLayouts)
 
-app.use(passport.initialize())
+app.use(express.static(path.join(__dirname, '../public')))
 
 app.use(express.json())
 
@@ -38,6 +40,8 @@ app.use(cookieParser())
 
 app.use(cors())
 
+app.use(flash())
+
 app.use(
   session({
     secret: config.session_secret,
@@ -45,6 +49,10 @@ app.use(
     saveUninitialized: false,
   })
 )
+
+app.use(passport.initialize())
+
+app.use(passport.session())
 
 app.use(
   helmet({

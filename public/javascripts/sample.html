@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div>
+        <div style="margin: 20px 20px;">
+            <button id='logout'>Logout</button>
+            <p>${auth_email}</p>
+        </div>
+        <form action="" method="POST" id="todo-form" style="margin: 50px 20px;">
+            <label for="items">Add item</label>
+            <input id="add-item" name="items" /><br />
+            <button type="submit">ADD</button>
+        </form>
+        <section>
+            <h2>Items added:</h2>
+            <ul id="item-ul">
+            </ul>
+        </section>
+    </div>
+
+</body>
+
+</html>

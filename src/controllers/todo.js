@@ -12,7 +12,7 @@ const createTodo = async (req, res) => {
       { new: true, upsert: true }
     )
 
-    if (createOrUpdateUserTodos) return res.status(200).send('ok')
+    if (createOrUpdateUserTodos) return res.status(200).json(createOrUpdateUserTodos)
   } catch (err) {
     res.status(422).json({ error: err.message })
   }

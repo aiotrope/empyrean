@@ -24,8 +24,6 @@ const userLogin = async (dataObj) => {
       setTimeout(() => {
         window.location.href = 'http://localhost:3000'
       }, 2000)
-
-      return result
     }
 
     return result
