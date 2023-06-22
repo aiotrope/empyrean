@@ -1,8 +1,6 @@
 *,
 html {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 body {
   font: 14px 'Lucida Grande', Helvetica, Arial, sans-serif;
@@ -18,8 +16,20 @@ a {
   color: #00b7ff;
 }
 
-.input-field {
-  margin-top: 10px;
-  margin-bottom: 10px;
+.wrapper {
+  margin-top: 25px !important;
+  margin-bottom: 25px !important;
+  margin-left: 12rem !important;
+
 }
 
+.wrapper:before, .wrapper:after {
+  content:"";
+  display:table;
+  clear:both;
+}
+
+.input-field {
+  margin-top: 10px;
+  margin-bottom: 25px;
+}
