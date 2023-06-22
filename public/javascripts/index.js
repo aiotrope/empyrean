@@ -11,10 +11,10 @@ var auth_email = localStorage.getItem('auth_email')
 const rendering = () => {
   const unAuth = ` <nav>
           <div style='padding-left: 20px;'>
-            <a href='http://localhost:3000' class="brand-logo">Empyrea</a>
+            <a href='/' class="brand-logo">Empyrea</a>
             <ul>
-              <li><a href='http://localhost:3000/login.html'>Login</a></li>
-              <li><a href='http://localhost:3000/register.html'>Register</a></li>
+              <li><a href='/login.html'>Login</a></li>
+              <li><a href='/register.html'>Register</a></li>
             </ul>
           </div>
         </nav>`
