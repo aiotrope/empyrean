@@ -17,7 +17,7 @@ const userLogin = async (dataObj) => {
     const result = await response.json()
 
     if (result.error) {
-      const loginError = document.querySelector('#login-error')
+      const loginError = document.querySelector('#display-errors')
       loginError.innerHTML = result.error
     }
 
@@ -34,6 +34,8 @@ const userLogin = async (dataObj) => {
     return result
   } catch (err) {
     console.error('Error:', err.message)
+    const loginError = document.querySelector('#display-errors')
+    loginError.innerHTML = err
   }
 }
 

@@ -1,12 +1,9 @@
 import config from '../utils/config'
 require('express-async-errors')
 import bcrypt from 'bcrypt'
-//import passport from 'passport'
 import jwt from 'jsonwebtoken'
 
 import User from '../models/user'
-//import { sessionStrategy } from '../utils/passport'
-//import logger from '../utils/logger'
 
 const signup = async (req, res) => {
   let { email, password } = req.body
@@ -38,12 +35,11 @@ const signin = async (req, res) => {
 
   try {
     const user = await User.findOne({ email })
+
     const correctPassword =
       user === null ? false : await bcrypt.compare(password, user.password)
 
     if (!(user && correctPassword)) throw Error('Invalid credentials')
-
-    //if (!correctPassword) throw Error('Invalid credentials')
 
     const payload = {
       email: user.email,
@@ -60,7 +56,6 @@ const signin = async (req, res) => {
 
 const privateRoute = async (req, res) => {
   try {
-    //logger.debug(req.user)
     const currentUser = req.user
 
     res.status(200).json({ email: currentUser.email })

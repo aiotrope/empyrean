@@ -1,36 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <%= title %>
-    </title>
-    <link rel="shortcut icon" href="#">
-    <link rel="stylesheet" href="/stylesheets/style.css">
-</head>
-<body>
-    <div class="container">
-        <h1>
-            <%= subTitle %>
-        </h1>
-        <div id="login-error" style="margin-top: 10;margin-bottom: 10px;color: red;"></div>
-        <form action="" method="POST" id="login-form">
+<form action="" method="POST" id="login-form">
 
-            <div class="input-field">
-                <input type="email" name="email" id="email-login" required />
-                <label for="email">Email</label>
-            </div>
-            <div class="input-field">
-                <input type="password" name="password" id="password-login" required />
-                <label for="password">Password</label>
-            </div>
-            <div class="input-field">
-                <input type="submit" value="Login" class="btn-large" />
-            </div>
-        </form>
+    <div class="input-field">
+        <input type="email" name="email" id="email-login" required />
+        <label for="email">Email</label>
     </div>
-    <script src="/javascripts/login.js" defer></script>
-</body>
-
-</html>
+    <div class="input-field">
+        <input type="password" name="password" id="password-login" required />
+        <label for="password">Password</label>
+    </div>
+    <div class="input-field">
+        <input type="submit" value="Login" class="btn-large" />
+    </div>
+</form>
+</div>
+<script src="/javascripts/login.js" defer></script>

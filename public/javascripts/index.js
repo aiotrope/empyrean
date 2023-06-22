@@ -1,4 +1,3 @@
-/* eslint-disable quotes */
 'use strict'
 
 var todoArr = []
@@ -31,7 +30,7 @@ const rendering = () => {
       <button type="submit">ADD</button>
   </form>
   <section id="item-section"></section>
-</div>`
+  </div>`
 
   if (auth_token) {
     document.getElementById('home').innerHTML = auth
@@ -68,10 +67,13 @@ const createTodo = async (dataObj) => {
     })
 
     const result = await response.json()
+    if (response.status === 200 && result) {
+      todoArr.push(result)
 
-    const parseResult = JSON.parse(JSON.stringify(result))
-
-    todoArr.push(parseResult)
+      setTimeout(() => {
+        window.location.href = 'http://localhost:3000'
+      }, 2000)
+    }
 
     return result
   } catch (err) {
@@ -110,7 +112,7 @@ const fetchAndSetAllTodos = async () => {
     const data = await response.json()
 
     if (response.status === 200 && data) {
-      // clone array
+
       let clone = await JSON.parse(JSON.stringify(data))
 
       let itemSection = document.querySelector('#item-section')
@@ -118,7 +120,10 @@ const fetchAndSetAllTodos = async () => {
       todoArr = clone
       console.log(clone)
       if (itemSection) {
+        /* eslint-disable-next-line quotes */
         let div = ``
+        /* eslint-enable-next-line quotes */
+
         Object.values(todoArr).forEach(({ id, user, items }) => {
           div += `<div key=${id}><p>User: User: ${user.email}</p><ul>${items
             .map(function (el) {

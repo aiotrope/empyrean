@@ -1,37 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <%= title %>
-    </title>
-    <link rel="shortcut icon" href="#">
-    <link rel="stylesheet" href="/stylesheets/style.css">
-</head>
-<body>
-    <div class="container">
-        <h1>
-            <%= subTitle %>
-        </h1>
-        <div id="registration-error" style="margin-top: 10;margin-bottom: 10px;color: red;"></div>
-        <form method="POST" id="registration-form">
+<form method="POST" id="registration-form">
 
-            <div class="input-field">
-                <input type="email" name="email" id="email-register" required />
-                <label for="email">Email</label>
-            </div>
-            <div class="input-field">
-                <input type="password" name="password" id="password-register" required />
-                <label for="password">Password</label>
-            </div>
-            <div class="input-field">
-                <input type="submit" value="Register" class="btn-large" />
-            </div>
-           
-        </form>
+    <div class="input-field">
+        <input type="email" name="email" id="email-register" required />
+        <label for="email">Email</label>
     </div>
-    <script src="/javascripts/register.js" defer></script>
-</body>
+    <div class="input-field">
+        <input type="password" name="password" id="password-register" required />
+        <label for="password">Password</label>
+    </div>
+    <div class="input-field">
+        <input type="submit" value="Register" class="btn-large" />
+    </div>
 
-</html>
+</form>
+</div>
+<script src="/javascripts/register.js" defer></script>

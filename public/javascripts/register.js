@@ -19,19 +19,21 @@ const userRegistration = async (dataObj) => {
     console.log(result)
 
     if (result.error) {
-      const registrationError = document.querySelector('#regsitration-error')
+      const registrationError = document.querySelector('#display-errors')
       registrationError.innerHTML = result.error
     }
 
     if (response.status === 200 && result) {
       setTimeout(() => {
         window.location.href = 'http://localhost:3000/login.html'
-      }, 2000)
+      }, 1000)
     }
 
     return result
   } catch (err) {
     console.error('Error:', err)
+    const registrationError = document.querySelector('#display-errors')
+    registrationError.innerHTML = err
   }
 }
 

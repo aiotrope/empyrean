@@ -3,9 +3,7 @@ import passport from 'passport'
 
 import todoController from '../controllers/todo'
 import middlewares from '../utils/middlewares'
-import {
-  createTodoSchema,
-} from '../utils/validators'
+import { createTodoSchema } from '../utils/validators'
 
 const router = express.Router()
 

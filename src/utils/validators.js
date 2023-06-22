@@ -11,10 +11,7 @@ export const signupSchema = yup
     password: yup
       .string()
       .min(8)
-      .matches(
-        password_regex,
-        'Password must have 1 uppercase & lowercase each, 1 number and a symbol.'
-      ),
+      .matches(password_regex, 'Password is not strong enough'),
   })
   .required()
 

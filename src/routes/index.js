@@ -1,7 +1,5 @@
 import express from 'express'
 
-//import logger from '../utils/logger'
-
 const router = express.Router()
 
 router.get('/register.html', async (req, res) => {
@@ -16,7 +14,7 @@ router.get('/login.html', async (req, res) => {
 })
 
 router.get('', async (req, res) => {
-  res.render('index', { title: 'Empyrean' })
+  res.render('index', { title: 'Empyrean', subTitle: 'Home page' })
 })
 
 export default router
