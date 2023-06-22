@@ -23,9 +23,9 @@ const userRegistration = async (dataObj) => {
       registrationError.innerHTML = result.error
     }
 
-    if (response.status === 200 && result) {
+    if (response.status === 200 && result.redirect_path) {
       setTimeout(() => {
-        window.location.href = 'http://localhost:3000/login.html'
+        window.location.href = result.redirect_path
       }, 1000)
     }
 

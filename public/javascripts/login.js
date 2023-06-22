@@ -21,13 +21,13 @@ const userLogin = async (dataObj) => {
       loginError.innerHTML = result.error
     }
 
-    if (response.status === 200 && result) {
+    if (response.status === 200 && result.redirect_path) {
       window.localStorage.setItem('auth_token', result.token)
 
       window.localStorage.setItem('auth_email', result.email)
 
       setTimeout(() => {
-        window.location.href = 'http://localhost:3000'
+        window.location.href = response.redirect_path
       }, 2000)
     }
 
