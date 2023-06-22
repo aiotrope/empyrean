@@ -10,6 +10,20 @@ var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/
 var _httpErrors = _interopRequireDefault(require("http-errors"));
 var _morgan = _interopRequireDefault(require("morgan"));
 var _logger = _interopRequireDefault(require("./logger"));
+var authMiddleware = function authMiddleware(req, res, next) {
+  if (!req.isAuthenticated()) {
+    next((0, _httpErrors.default)(401));
+    return res.redirect('/login.html');
+  } else {
+    return next();
+  }
+};
+var preAuthMiddleware = function preAuthMiddleware(req, res, next) {
+  if (req.isAuthenticated()) {
+    return res.redirect('/');
+  }
+  next();
+};
 var stream = {
   write: function write(message) {
     return _logger.default.http(message);
@@ -113,7 +127,9 @@ var middlewares = {
   loggingMiddleware: loggingMiddleware,
   endPoint404: endPoint404,
   errorHandler: errorHandler,
-  validateAuthObject: validateAuthObject
+  validateAuthObject: validateAuthObject,
+  authMiddleware: authMiddleware,
+  preAuthMiddleware: preAuthMiddleware
 };
 var _default = middlewares;
 exports.default = _default;

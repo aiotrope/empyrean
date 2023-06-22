@@ -45,9 +45,10 @@ var signup = /*#__PURE__*/function () {
           return _user.default.create(newUser);
         case 14:
           response = _context.sent;
-          return _context.abrupt("return", res.status(200).json({
+          return _context.abrupt("return", res.status(302).send({
             id: response.id,
-            email: response.email
+            email: response.email,
+            redirect_path: '/login.html'
           }));
         case 18:
           _context.prev = 18;
@@ -105,8 +106,8 @@ var signin = /*#__PURE__*/function () {
           };
           token = _jsonwebtoken.default.sign(payload, _config.default.secret, {
             expiresIn: '1h'
-          });
-          res.status(200).json({
+          }); //res.status(200).json({ success: true, token: token, email: payload.email })
+          res.status(302).send({
             success: true,
             token: token,
             email: payload.email

@@ -21,6 +21,7 @@ var _todo = _interopRequireDefault(require("./routes/todo"));
 var app = (0, _express.default)();
 (0, _db.default)();
 (0, _passport2.jwtStrategy)(_passport.default);
+(0, _passport2.authenticateUserLocal)(_passport.default);
 app.set('views', _path.default.join(__dirname, '../views'));
 app.set('view engine', 'ejs');
 app.use(_expressEjsLayouts.default);
