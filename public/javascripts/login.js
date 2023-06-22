@@ -21,13 +21,13 @@ const userLogin = async (dataObj) => {
       loginError.innerHTML = result.error
     }
 
-    if (response.status === 200 && result.redirect_path) {
+    if (response.status === 302 && result.success) {
       window.localStorage.setItem('auth_token', result.token)
 
       window.localStorage.setItem('auth_email', result.email)
 
       setTimeout(() => {
-        window.location.href = response.redirect_path
+        window.location.href = 'http://localhost:3000'
       }, 2000)
     }
 
@@ -58,3 +58,4 @@ loginForm.addEventListener('submit', async (event) => {
 
   clearForm()
 })
+

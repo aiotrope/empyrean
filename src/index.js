@@ -12,7 +12,7 @@ import ejsLayouts from 'express-ejs-layouts'
 import MongoDatabase from './utils/db'
 import middlewares from './utils/middlewares'
 import logger from './utils/logger'
-import { jwtStrategy } from './utils/passport'
+import { jwtStrategy, authenticateUserLocal } from './utils/passport'
 
 import indexRouter from './routes/index'
 import userRouter from './routes/user'
@@ -23,6 +23,8 @@ const app = express()
 MongoDatabase()
 
 jwtStrategy(passport)
+
+authenticateUserLocal(passport)
 
 app.set('views', path.join(__dirname, '../views'))
 

@@ -142,6 +142,6 @@ const fetchAndSetAllTodos = async () => {
   }
 }
 
-if (auth_token) {
+if (auth_token && auth_email) {
   fetchAndSetAllTodos()
 }

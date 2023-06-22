@@ -2,6 +2,22 @@ import createHttpError from 'http-errors'
 import morgan from 'morgan'
 import logger from './logger'
 
+const authMiddleware = (req, res, next) => {
+  if (!req.isAuthenticated()) {
+    next(createHttpError(401))
+    return res.redirect('/login.html')
+  } else {
+    return next()
+  }
+}
+
+const preAuthMiddleware = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    return res.redirect('/')
+  }
+  next()
+}
+
 const stream = {
   write: (message) => logger.http(message),
 }
@@ -90,6 +106,8 @@ const middlewares = {
   endPoint404,
   errorHandler,
   validateAuthObject,
+  authMiddleware,
+  preAuthMiddleware,
 }
 
 export default middlewares

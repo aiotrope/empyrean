@@ -13,6 +13,13 @@ const options = {
 //options.issuer = ???;
 //options.audience = ???;
 
+const customFields = {
+  usernameField: 'email',
+  passwordField: 'password',
+}
+
+const LocalStrategy = passportLocal.Strategy
+
 export const jwtStrategy = (passport) => {
   passport.use(
     new Strategy(options, async (req, payload, done) => {
@@ -28,33 +35,30 @@ export const jwtStrategy = (passport) => {
   )
 }
 
-export const sessionStrategy = (passport, getUserByEmail, getUserById) => {
-  const authenticateUser = async (email, password, done) => {
-    const user = getUserByEmail(email)
-
-    if (user === null) {
-      return done(null, false, { message: 'Invalid credentials' })
-    }
-
-    try {
-      if (await bcrypt.compare(password, user.password)) {
-        return done(null, user)
+const verifyAuthCredentialsCallback = (email, password, done) => {
+  User.findOne({ email }).then((user) => {
+    if (!user) {
+      return done(null, false, { message: 'Invalid credential' })
+    } else {
+      const isCorrectPassword = bcrypt.compareSync(password, user.password)
+      if (!isCorrectPassword) {
+        return done(null, false, { message: 'Invalid credential' })
       } else {
-        return done(null, false, { message: 'Invalid credentials' })
+        return done(null, user)
       }
-    } catch (err) {
-      return done(err)
     }
-  }
-
-  const LocalStrategy = passportLocal.Strategy
-
-  passport.use(new LocalStrategy({ usernameField: 'email' }, authenticateUser))
-  passport.serializeUser((user, done) => done(null, user.id))
-
-  passport.deserializeUser((id, done) => {
-    return done(null, getUserById(id))
   })
 }
 
-export default jwtStrategy
+export const authenticateUserLocal = (passport) => {
+  passport.use(new LocalStrategy(customFields, verifyAuthCredentialsCallback))
+
+  passport.serializeUser((user, done) => done(null, user.id))
+
+  passport.deserializeUser((id, done) =>
+    User.findById(id)
+      .then((user) => done(null, user))
+      .catch((err) => done(err))
+  )
+}
+

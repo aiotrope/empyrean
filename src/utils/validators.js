@@ -2,7 +2,7 @@ import * as yup from 'yup'
 
 /* eslint-disable-next-line no-useless-escape */
 const password_regex =
-  /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/
+  /^.*(?=.{8,})((?=.*[~?/`!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/
 /* eslint-enable-next-line no-useless-escape */
 
 export const signupSchema = yup
