@@ -17,3 +17,9 @@ body {
 a {
   color: #00b7ff;
 }
+
+.input-field {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+

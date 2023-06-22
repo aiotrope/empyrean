@@ -30,10 +30,7 @@ const rendering = () => {
       <input id="add-item" name="items" /><br />
       <button type="submit">ADD</button>
   </form>
-  <section>
-      <h2>Item list:</h2>
-      <ul id="item-ul"></ul>
-  </section>
+  <section id="item-section"></section>
 </div>`
 
   if (auth_token) {
@@ -116,16 +113,22 @@ const fetchAndSetAllTodos = async () => {
       // clone array
       let clone = await JSON.parse(JSON.stringify(data))
 
-      let itemUL = document.getElementById('item-ul')
+      let itemSection = document.querySelector('#item-section')
 
       todoArr = clone
       console.log(clone)
-      todoArr.map(({ user, items }) => {
-        //console.log(user.email)
-        if (itemUL) {
-          itemUL.innerHTML = `<p>User: ${user.email}</p><p>Todos: ${items}</p>`
-        }
-      })
+      if (itemSection) {
+        let div = ``
+        Object.values(todoArr).forEach(({ id, user, items }) => {
+          div += `<div key=${id}><p>User: User: ${user.email}</p><ul>${items
+            .map(function (el) {
+              return '<li>' + el + '</li>'
+            })
+            .join('')}</ul></div>`
+        })
+
+        itemSection.innerHTML = div
+      }
     } else {
       todoArr = null
     }

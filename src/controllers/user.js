@@ -14,7 +14,7 @@ const signup = async (req, res) => {
   try {
     const foundUser = await User.findOne({ email })
 
-    if (foundUser) throw Error('Email already in use.')
+    if (foundUser) throw Error('Email already in use')
 
     const saltRounds = 10
 
@@ -39,9 +39,11 @@ const signin = async (req, res) => {
   try {
     const user = await User.findOne({ email })
     const correctPassword =
-      user !== null ? bcrypt.compare(password, user.password) : false
+      user === null ? false : await bcrypt.compare(password, user.password)
 
-    if (!(user && correctPassword)) throw Error('Invalid login credentials!')
+    if (!(user && correctPassword)) throw Error('Invalid credentials')
+
+    //if (!correctPassword) throw Error('Invalid credentials')
 
     const payload = {
       email: user.email,

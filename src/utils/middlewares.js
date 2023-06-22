@@ -74,11 +74,11 @@ const errorHandler = (error, req, res, next) => {
     return res.status(401).json({ error: 'token expired!' })
   }
 
-  if (error.message === 'Email already in use.') {
-    return res.status(403).json({ email: error.message })
+  if (error.message === 'Email already in use') {
+    return res.status(403).json({ error: error.message })
   }
 
-  if (error.message === 'Invalid login credentials!') {
+  if (error.message === 'Invalid credentials') {
     return res.status(401).json({ error: error.message })
   }
 

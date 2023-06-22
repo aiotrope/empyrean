@@ -16,7 +16,12 @@ const userLogin = async (dataObj) => {
 
     const result = await response.json()
 
-    if (result) {
+    if (result.error) {
+      const loginError = document.querySelector('#login-error')
+      loginError.innerHTML = result.error
+    }
+
+    if (response.status === 200 && result) {
       window.localStorage.setItem('auth_token', result.token)
 
       window.localStorage.setItem('auth_email', result.email)
