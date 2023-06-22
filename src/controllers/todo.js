@@ -12,7 +12,8 @@ const createTodo = async (req, res) => {
       { new: true, upsert: true }
     )
 
-    if (createOrUpdateUserTodos) return res.status(200).json(createOrUpdateUserTodos)
+    if (createOrUpdateUserTodos)
+      return res.status(200).json(createOrUpdateUserTodos)
   } catch (err) {
     res.status(422).json({ error: err.message })
   }
@@ -22,7 +23,11 @@ const fetchAllTodos = async (req, res) => {
   try {
     const allTodos = await Todo.find({}).populate('user', { id: 1, email: 1 })
 
-    res.status(200).json(allTodos)
+    if (allTodos) {
+      res.status(200).json(allTodos)
+    } else {
+      return null
+    }
   } catch (err) {
     res.status(422).json({ error: err.message })
   }

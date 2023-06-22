@@ -7,7 +7,7 @@ import helmet from 'helmet'
 import session from 'express-session'
 import passport from 'passport'
 import flash from 'express-flash'
-import ejsLayouts from 'express-ejs-layouts'
+//import ejsLayouts from 'express-ejs-layouts'
 
 import MongoDatabase from './utils/db'
 import middlewares from './utils/middlewares'
@@ -28,7 +28,7 @@ app.set('views', path.join(__dirname, '../views'))
 
 app.set('view engine', 'ejs')
 
-app.use(ejsLayouts)
+//app.use(ejsLayouts)
 
 app.use(express.static(path.join(__dirname, '../public')))
 

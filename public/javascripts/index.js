@@ -1,14 +1,15 @@
+/* eslint-disable quotes */
 'use strict'
 
 var todoArr = []
 
 const url = 'http://localhost:3000/api/todos'
 
+var auth_token = localStorage.getItem('auth_token')
+
+var auth_email = localStorage.getItem('auth_email')
+
 const rendering = () => {
-  const auth_token = localStorage.getItem('auth_token')
-
-  const auth_email = localStorage.getItem('auth_email')
-
   const unAuth = ` <nav>
           <div style='padding-left: 20px;'>
             <a href='http://localhost:3000' class="brand-logo">Empyrea</a>
@@ -24,11 +25,15 @@ const rendering = () => {
       <button id='logout'>Logout</button>
       <p>${auth_email}</p>
   </div>
-  <form action="" method="POST" style="margin: 50px 20px;">
+  <form action="" method="POST" id="todo-form" style="margin: 50px 20px;">
       <label for="items">Add item</label>
-      <input id="add-item" name="items" /><br /><br />
+      <input id="add-item" name="items" /><br />
       <button type="submit">ADD</button>
   </form>
+  <section>
+      <h2>Item list:</h2>
+      <ul id="item-ul"></ul>
+  </section>
 </div>`
 
   if (auth_token) {
@@ -58,9 +63,10 @@ const createTodo = async (dataObj) => {
   try {
     const response = await fetch(url, {
       method: 'POST',
-      headers: {
+      headers: new Headers({
+        Authorization: `Bearer ${auth_token}`,
         'Content-Type': 'application/json',
-      },
+      }),
       body: JSON.stringify(dataObj),
     })
 
@@ -86,7 +92,7 @@ window.addEventListener('DOMContentLoaded', () => {
       let inputItem = document.querySelector('#add-item')
 
       let data = {
-        items: inputItem.value,
+        items: [inputItem.value],
       }
       await createTodo(data)
 
@@ -97,36 +103,37 @@ window.addEventListener('DOMContentLoaded', () => {
 
 const fetchAndSetAllTodos = async () => {
   try {
-    const response = await fetch('http://localhost:3000/api/todos')
-
+    const response = await fetch('http://localhost:3000/api/todos', {
+      method: 'GET',
+      headers: new Headers({
+        Authorization: `Bearer ${auth_token}`,
+        'Content-Type': 'application/json',
+      }),
+    })
     const data = await response.json()
 
     if (response.status === 200 && data) {
       // clone array
       let clone = await JSON.parse(JSON.stringify(data))
 
-      todoArr = clone
+      let itemUL = document.getElementById('item-ul')
 
-      renderList(todoArr)
+      todoArr = clone
+      console.log(clone)
+      todoArr.map(({ user, items }) => {
+        //console.log(user.email)
+        if (itemUL) {
+          itemUL.innerHTML = `<p>User: ${user.email}</p><p>Todos: ${items}</p>`
+        }
+      })
+    } else {
+      todoArr = null
     }
   } catch (error) {
     console.error('Error fetching todos: ', error.message)
   }
 }
 
-fetchAndSetAllTodos()
-
-
-const itemUL = document.querySelector('#item-ul')
-
-const renderList = (arrObj) => {
-  /* eslint-disable-next-line quotes */
-  let ul = ``
-  /* eslint-enable-next-line quotes */
-
-  Object.values(arrObj).forEach(({ items }) => {
-    ul += `<li>${items}</li>`
-  })
-
-  itemUL.innerHTML = ul
+if (auth_token) {
+  fetchAndSetAllTodos()
 }
